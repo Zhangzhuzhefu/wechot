@@ -1,0 +1,15 @@
+{
+  "name": "wechot",
+  "version": "1.0.0",
+  "description": "Jeff's personal chatbt",
+  "main": "index.ts",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Jeff Zhang",
+  "license": "ISC",
+  "dependencies": {
+    "qrcode-terminal": "^0.12.0",
+    "wechaty": "^0.15.3"
+  }
+}
