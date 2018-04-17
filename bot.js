@@ -1,6 +1,6 @@
 const {Wechaty, Room} = require('wechaty')
 const qr = require('qrcode-terminal')
-
+const chat = require('./processor/chat-processor')
 const bot = Wechaty.instance()
 
 bot
@@ -11,7 +11,8 @@ bot
 })
 
 .on('login', user=>{
-    console.log(`${user} login`)
+    console.log(`${user} login`);
+    chat.initialize();
 })
 
 .on('friend', async function (contact, request){
@@ -28,13 +29,18 @@ bot
 
     if(room){
         console.log(`${contact.name()} @ ${room.topic()} : ${content}`)
+        return
     } else{
         console.log(`${contact.name()} : ${content}`)
     }
 
+
     if(m.self()){
+        chat.perform(m);
+
         return
     }
+
 
     if(/hello/.test(content)){
         m.say("hello how are you")
@@ -57,5 +63,5 @@ bot
     }
 })
 
-.init()
+.start()
 
