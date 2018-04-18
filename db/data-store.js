@@ -7,14 +7,21 @@ const db = {
 
     initialize: function () {
         collection = tingo.collection('status.json');
-        console.log('collection status.json exists.' + "\n"+ collection.collectionName);
+        console.log('collection exists.' + "\n"+ collection.collectionName);
 
         this.isAtWork(function (error, data) {
-            console.log("error: " + error, "data: "+JSON.stringify(data));
             if(!data) {
                 console.log('setting isJeffAtWork to false');
                 const collection = tingo.collection('status.json');
                 collection.insert({'key':'isJeffAtWork', 'value': false});
+            }
+        });
+
+        this.isSleeping(function (error, data) {
+            if(!data) {
+                console.log('setting isJeffSleeping to false');
+                const collection = tingo.collection('status.json');
+                collection.insert({'key':'isJeffSleeping', 'value': false});
             }
         });
     },
@@ -29,6 +36,18 @@ const db = {
 
     offWork : function (callback) {
         collection.update({'key':'isJeffAtWork'}, {'key':'isJeffAtWork', 'value': false}, callback);
+    },
+
+    isSleeping : function (callback) {
+        collection.findOne({'key':'isJeffSleeping'}, callback);
+    },
+
+    goToBed : function (callback) {
+        collection.update({'key':'isJeffSleeping'}, {'key':'isJeffSleeping', 'value': true}, callback);
+    },
+
+    wakeUp : function (callback) {
+        collection.update({'key':'isJeffSleeping'}, {'key':'isJeffSleeping', 'value': false}, callback);
     }
 
 
