@@ -37,7 +37,7 @@ bot
 
     if(m.self()){
         chat.perform(m);
-
+        m.say("end")
         return
     }
 

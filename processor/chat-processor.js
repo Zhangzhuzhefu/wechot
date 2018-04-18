@@ -46,6 +46,8 @@ var chat = {
                 console.log('fail:', error);
             });
         }
+
+        m.say('finished perform');
     }
 };
 
