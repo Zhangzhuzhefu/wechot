@@ -17,7 +17,7 @@ bot
 
 .on('friend', async function (contact, request){
     if(request){
-        await request.accept()
+        // await request.accept()
         console.log(`Contact: ${contact.name()} send request ${request.hello}`)
     }
 })
@@ -27,14 +27,20 @@ bot
     const content = m.content()
     const room = m.room()
 
+    console.log('mentioned()' + m.mentioned().toString());
+    console.log('type' + m.type());
+    console.log('typeSub' + m.typeSub());
+    console.log('typeApp' + m.typeApp());
+    console.log('typeEx' + m.typeEx());
+
     if(room){
         console.log(`${contact.name()} @ ${room.topic()} : ${content}`);
     } else{
         console.log(`${contact.name()} : ${content}`);
         if(m.self()){
             chat.perform(m);
-        } else {
             chat.respond(m);
+        } else {
         }
     }
 

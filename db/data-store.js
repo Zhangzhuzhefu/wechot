@@ -1,7 +1,7 @@
 const Engine = require('tingodb')();
 const tingo = new Engine.Db('./tingoDataStore', {});
 
-var collection;
+let collection;
 
 const db = {
 
@@ -12,7 +12,6 @@ const db = {
         this.isAtWork(function (error, data) {
             if(!data) {
                 console.log('setting isJeffAtWork to false');
-                const collection = tingo.collection('status.json');
                 collection.insert({'key':'isJeffAtWork', 'value': false});
             }
         });
@@ -20,9 +19,29 @@ const db = {
         this.isSleeping(function (error, data) {
             if(!data) {
                 console.log('setting isJeffSleeping to false');
-                const collection = tingo.collection('status.json');
                 collection.insert({'key':'isJeffSleeping', 'value': false});
             }
+        });
+
+        collection.findOne({'key': 'autoReply'}, function (error, data) {
+            if (!data) {
+                console.log('inserting auto-reply: false')
+                collection.insert({'key':'autoReply', 'value': false});
+            }
+        });
+    },
+
+    isAutoOn: function (callback) {
+        collection.findOne({'key': 'autoReply'}, callback);
+    },
+
+    toggleAuto: function (callback) {
+        db.isAutoOn(function (error, data) {
+           if (data['value']) {
+               collection.update({'key':'autoReply'}, {'key':'autoReply', 'value': false}, callback);
+           } else {
+               collection.update({'key':'autoReply'}, {'key':'autoReply', 'value': true}, callback);
+           }
         });
     },
 

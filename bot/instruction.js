@@ -5,6 +5,7 @@ module.exports = {
     GO_TO_BED: '睡觉啦',
     WAKE_UP: '我醒啦',
     IS_SLEEPING: '睡了吗',
+    IS_AUTO: '自动回复吗',
+    TOGGLE_AUTO: '自动回复',
     HELP: 'help'
-
 };
