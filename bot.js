@@ -28,21 +28,20 @@ bot
     const room = m.room()
 
     if(room){
-        console.log(`${contact.name()} @ ${room.topic()} : ${content}`)
-        return
+        console.log(`${contact.name()} @ ${room.topic()} : ${content}`);
     } else{
-        console.log(`${contact.name()} : ${content}`)
+        console.log(`${contact.name()} : ${content}`);
+        if(m.self()){
+            chat.perform(m);
+        } else {
+            chat.respond(m);
+        }
     }
 
 
-    if(m.self()){
-        chat.perform(m);
-        m.say("end")
-        return
-    }
 
 
-    if(/hello/.test(content)){
+    /*if(/hello/.test(content)){
         m.say("hello how are you")
     }
 
@@ -60,7 +59,7 @@ bot
             await keyroom.say("Remove from the room", contact)
             await keyroom.del(contact)
         }
-    }
+    }*/
 })
 
 .start()
